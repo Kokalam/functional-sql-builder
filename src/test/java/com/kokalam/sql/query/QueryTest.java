@@ -84,7 +84,7 @@ public class QueryTest {
     @Test
     @DisplayName("select column name as pseudo and surname as family_name from table User")
     public void shouldReturnQueryWithTwoColumnAsFromTableUser() {
-        final String expectedQuery = "SELECT name as pseudo,surname as family_name  FROM User";
+        final String expectedQuery = "SELECT name as pseudo,surname as family_name FROM User";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
                 s.column(c -> c.name("name").as("pseudo"))
@@ -103,7 +103,7 @@ public class QueryTest {
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
                 s.column(c -> c.of("u").name("name"))
-                 .column(c -> c.of("u").name("street"))
+                 .column(c -> c.of("a").name("street"))
             ).from(f ->
                 f.table(t -> t.name("User").as("u"))
                  .table(t -> t.name("Address").as("a"))
@@ -147,7 +147,7 @@ public class QueryTest {
     @Test
     @DisplayName("should select column name as pseudo from table User as u and column street as location from table Address as a")
     public void shouldReturnQueryWithTwoColumnWithAliasAsFromTwoTableWithAlias() {
-        final String expectedQuery = "SELECT u.name as pseudo,a.street as location FROM User,Address";
+        final String expectedQuery = "SELECT u.name as pseudo,a.street as location FROM User u,Address a";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
                 s.column(c -> c.of("u").name("name").as("pseudo"))
@@ -167,5 +167,17 @@ public class QueryTest {
         Assertions.assertThrows(IllegalStateException.class, () -> builder.from(f ->
                 f.table(t -> t.name("User").as("u"))
         ));
+    }
+
+    @Test
+    @DisplayName("call to select clause can only be called once")
+    public void shouldThrowIllegalStateExceptionWhenSelectIsCalledTwice() {
+        Query.Builder builder = new Query.Builder();
+        Assertions.assertThrows(IllegalStateException.class, () ->
+            builder.select(s ->
+                s.column(c -> c.of("u").name("name").as("pseudo"))
+            ).select(s ->
+                s.column(c -> c.of("a").name("street").as("location"))
+            ));
     }
 }
