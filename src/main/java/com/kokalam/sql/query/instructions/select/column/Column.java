@@ -2,6 +2,8 @@ package com.kokalam.sql.query.instructions.select.column;
 
 import com.kokalam.sql.query.instructions.Instruction;
 
+import java.util.Optional;
+
 public class Column implements Instruction {
 
     private final String name;
@@ -18,7 +20,9 @@ public class Column implements Instruction {
 
     @Override
     public String generate() {
-        return null;
+        return Optional.ofNullable(table).map(t -> t + ".").orElse("")
+                + name
+                + Optional.ofNullable(alias).map(a -> " as " + alias).orElse("");
     }
 
     public static class Builder {
@@ -45,6 +49,9 @@ public class Column implements Instruction {
         }
 
         public Column build() {
+            if (name == null || name.isBlank()) {
+                throw new IllegalArgumentException("Column has no name defined");
+            }
             return new Column(name, table, alias);
         }
 
