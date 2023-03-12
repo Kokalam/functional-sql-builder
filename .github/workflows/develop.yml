@@ -32,12 +32,7 @@ jobs:
         uses: yuzhiyongcn/setup-maven@v1.0.0
         with:
           maven-version: 3.8.2
-
-      # Runs a single command using the runners shell
-      - name: build
-        run: mvn build
-      - name: test
-        run: mvn test
+          
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
