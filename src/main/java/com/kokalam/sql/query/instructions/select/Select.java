@@ -40,6 +40,9 @@ public class Select implements Instruction {
         }
 
         public Select build() {
+            if (columns.isEmpty()) {
+                throw new IllegalArgumentException("List of column is empty");
+            }
             return new Select(columns);
         }
     }

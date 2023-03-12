@@ -43,7 +43,7 @@ public class From implements Instruction {
 
         public From build() {
             if (clauses.isEmpty()) {
-                throw new IllegalArgumentException("List of table from select is empty");
+                throw new IllegalArgumentException("List of table from is empty");
             }
             return new From(clauses);
         }
