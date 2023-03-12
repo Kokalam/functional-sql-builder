@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 
 public class Query {
 
-    private String query;
+    private final String request;
 
-    private Query(String query) {
-        this.query = query;
+    private Query(String request) {
+        this.request = request;
     }
 
     public String get() {
-        return this.query;
+        return this.request;
     }
 
     public static class Builder {
@@ -38,8 +38,6 @@ public class Query {
         public Builder select(Consumer<Select.Builder> consumer) {
             if (state.equals(State.SELECT)) {
                 throw new IllegalStateException("select clause must be called only once");
-            } else if (!state.equals(State.INIT)) {
-                throw new IllegalStateException("select clause must can't be called after from clause");
             }
             Select.Builder builder = new Select.Builder();
             consumer.accept(builder);

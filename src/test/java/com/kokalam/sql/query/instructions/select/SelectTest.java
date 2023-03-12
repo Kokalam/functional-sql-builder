@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class SelectTest {
+class SelectTest {
 
     @Test
     @DisplayName("select one column")
-    public void shouldGenerateSelectWithOneColumn() {
+    void shouldGenerateSelectWithOneColumn() {
         String expectedSelect = "SELECT name";
         Select.Builder builder = new Select.Builder();
         builder.column(c -> c.name("name"));
@@ -18,7 +18,7 @@ public class SelectTest {
 
     @Test
     @DisplayName("select two column")
-    public void shouldGenerateSelectWithTwoColumn() {
+    void shouldGenerateSelectWithTwoColumn() {
         String expectedSelect = "SELECT name,surname";
         Select.Builder builder = new Select.Builder();
         builder.column(c -> c.name("name"))
@@ -29,7 +29,7 @@ public class SelectTest {
 
     @Test
     @DisplayName("at least one column should be selected")
-    public void shouldThrowExceptionIfNoColumnSelected() {
+    void shouldThrowExceptionIfNoColumnSelected() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new Select.Builder().build();
         });

@@ -1,15 +1,14 @@
 package com.kokalam.sql.query.instructions.select.column;
 
-import com.kokalam.sql.query.instructions.select.column.Column;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ColumnTest {
+class ColumnTest {
 
     @Test
     @DisplayName("generate column with name")
-    public void shouldReturnColumnName() {
+    void shouldReturnColumnName() {
         String expectedColumn = "name";
         Column.Builder builder = new Column.Builder();
         builder.name("name");
@@ -19,7 +18,7 @@ public class ColumnTest {
 
     @Test
     @DisplayName("generate column with name and alias")
-    public void shouldReturnColumnNameAndAsAlias() {
+    void shouldReturnColumnNameAndAsAlias() {
         String expectedColumn = "name as pseudo";
         Column.Builder builder = new Column.Builder();
         builder.name("name").as("pseudo");
@@ -29,7 +28,7 @@ public class ColumnTest {
 
     @Test
     @DisplayName("generate column with name and table specifier")
-    public void shouldReturnColumnNameAndItsTableSpecifier() {
+    void shouldReturnColumnNameAndItsTableSpecifier() {
         String expectedColumn = "u.name";
         Column.Builder builder = new Column.Builder();
         builder.name("name").of("u");
@@ -39,7 +38,7 @@ public class ColumnTest {
 
     @Test
     @DisplayName("generate column with name, alias and table specifier")
-    public void shouldReturnColumnNameAndItsTableSpecifierAndAsAlias() {
+    void shouldReturnColumnNameAndItsTableSpecifierAndAsAlias() {
         String expectedColumn = "u.name as pseudo";
         Column.Builder builder = new Column.Builder();
         builder.name("name").of("u").as("pseudo");
@@ -49,10 +48,14 @@ public class ColumnTest {
 
     @Test
     @DisplayName("column name should always be specified")
-    public void shouldThrowExceptionIfColumnHaveNoName() {
+    void shouldThrowExceptionIfColumnHaveNoName() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Column.Builder builder = new Column.Builder();
             builder.of("u").as("pseudo").build();
+        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Column.Builder builder = new Column.Builder();
+            builder.name("").of("u").as("pseudo").build();
         });
     }
 }

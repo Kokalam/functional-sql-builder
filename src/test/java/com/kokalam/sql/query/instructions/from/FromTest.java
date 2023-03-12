@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class FromTest {
+class FromTest {
 
     @Test
     @DisplayName("from with one table")
-    public void shouldReturnFromWithOneTable() {
+    void shouldReturnFromWithOneTable() {
         String expectedFrom = " FROM User";
         From.Builder builder = new From.Builder();
         From from = builder.table(t -> t.name("User")).build();
@@ -17,7 +17,7 @@ public class FromTest {
 
     @Test
     @DisplayName("from with two table")
-    public void shouldReturnFromWithTwoTable() {
+    void shouldReturnFromWithTwoTable() {
         String expectedFrom = " FROM User,Address";
         From.Builder builder = new From.Builder();
         From from = builder
@@ -29,7 +29,7 @@ public class FromTest {
 
     @Test
     @DisplayName("at least one table should be selected")
-    public void shouldThrowExceptionOfNoTableSelected() {
+    void shouldThrowExceptionOfNoTableSelected() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new From.Builder().build();
         });

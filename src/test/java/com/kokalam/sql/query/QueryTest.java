@@ -1,16 +1,14 @@
 package com.kokalam.sql.query;
 
-import com.kokalam.sql.query.instructions.select.column.Column;
-import com.kokalam.sql.query.instructions.from.clauses.table.Table;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class QueryTest {
+class QueryTest {
 
     @Test
     @DisplayName("select all column from table User")
-    public void shouldReturnQueryWithAllColumnFromTableUser() {
+    void shouldReturnQueryWithAllColumnFromTableUser() {
         final String expectedQuery = "SELECT * FROM User";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -24,7 +22,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("select column name from table User")
-    public void shouldReturnQueryWithOneColumnFromTableUser() {
+    void shouldReturnQueryWithOneColumnFromTableUser() {
         final String expectedQuery = "SELECT name FROM User";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -39,7 +37,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("select column name and surname from table User")
-    public void shouldReturnQueryWithTwoColumnFromTableUser() {
+    void shouldReturnQueryWithTwoColumnFromTableUser() {
         final String expectedQuery = "SELECT name,surname FROM User";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -54,7 +52,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("select column name as pseudo from table User")
-    public void shouldReturnQueryWithOneColumnAsFromTableUser() {
+    void shouldReturnQueryWithOneColumnAsFromTableUser() {
         final String expectedQuery = "SELECT name as pseudo FROM User";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -68,7 +66,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("select column name as pseudo and surname from table User")
-    public void shouldReturnQueryWithOneColumnAsAndOneColumnFromTableUser() {
+    void shouldReturnQueryWithOneColumnAsAndOneColumnFromTableUser() {
         final String expectedQuery = "SELECT name as pseudo,surname FROM User";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -83,7 +81,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("select column name as pseudo and surname as family_name from table User")
-    public void shouldReturnQueryWithTwoColumnAsFromTableUser() {
+    void shouldReturnQueryWithTwoColumnAsFromTableUser() {
         final String expectedQuery = "SELECT name as pseudo,surname as family_name FROM User";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -98,7 +96,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("select column name from table User as u and column street from table Address as a")
-    public void shouldReturnQueryWithTwoColumnAsFromTwoTableWithAlias() {
+    void shouldReturnQueryWithTwoColumnAsFromTwoTableWithAlias() {
         final String expectedQuery = "SELECT u.name,a.street FROM User u,Address a";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -114,7 +112,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("select column name from table User and column street from table Address")
-    public void shouldReturnQueryWithTwoColumnAsFromTwoTable() {
+    void shouldReturnQueryWithTwoColumnAsFromTwoTable() {
         final String expectedQuery = "SELECT User.name,Address.street FROM User,Address";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -130,7 +128,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("select column name as pseudo from table User and column street as location from table Address")
-    public void shouldReturnQueryWithTwoColumnWithAliasAsFromTwoTable() {
+    void shouldReturnQueryWithTwoColumnWithAliasAsFromTwoTable() {
         final String expectedQuery = "SELECT name as pseudo,street as location FROM User,Address";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -146,7 +144,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("should select column name as pseudo from table User as u and column street as location from table Address as a")
-    public void shouldReturnQueryWithTwoColumnWithAliasAsFromTwoTableWithAlias() {
+    void shouldReturnQueryWithTwoColumnWithAliasAsFromTwoTableWithAlias() {
         final String expectedQuery = "SELECT u.name as pseudo,a.street as location FROM User u,Address a";
         Query.Builder builder = new Query.Builder();
         Query query = builder.select(s ->
@@ -162,7 +160,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("call from clause before select clause")
-    public void shouldThrowIllegalStateExceptionWhenFromIsCalledBeforeSelect() {
+    void shouldThrowIllegalStateExceptionWhenFromIsCalledBeforeSelect() {
         Query.Builder builder = new Query.Builder();
         Assertions.assertThrows(IllegalStateException.class, () -> builder.from(f ->
                 f.table(t -> t.name("User").as("u"))
@@ -171,7 +169,7 @@ public class QueryTest {
 
     @Test
     @DisplayName("call to select clause can only be called once")
-    public void shouldThrowIllegalStateExceptionWhenSelectIsCalledTwice() {
+    void shouldThrowIllegalStateExceptionWhenSelectIsCalledTwice() {
         Query.Builder builder = new Query.Builder();
         Assertions.assertThrows(IllegalStateException.class, () ->
             builder.select(s ->

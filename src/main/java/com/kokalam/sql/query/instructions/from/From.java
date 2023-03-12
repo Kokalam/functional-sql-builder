@@ -3,7 +3,6 @@ package com.kokalam.sql.query.instructions.from;
 import com.kokalam.sql.query.instructions.Instruction;
 import com.kokalam.sql.query.instructions.from.clauses.Clause;
 import com.kokalam.sql.query.instructions.from.clauses.table.Table;
-import com.kokalam.sql.query.instructions.select.column.Column;
 
 import java.util.ArrayList;
 import java.util.List;
