@@ -43,10 +43,13 @@ jobs:
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Push new version to develop branch    
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: Snapshot
-          message: 'Set version ${{ env.new_version }}'
-          tag: '${{ env.new_version }} --force'
+          
+      - name: commit version and tags
+        if: github.event_name == 'push'
+        run: |
+          git config --global user.name "Snapshot"
+          git config --global user.email "snapshot@kokalam.github.com"
+          git commit -a -m "Set version to ${{ env.new_version }}"
+          git tag -a ${{ env.new_version }} -m "Version ${{ env.new_version }}"
+          git push --tags
+          git push
