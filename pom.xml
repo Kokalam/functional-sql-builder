@@ -6,7 +6,7 @@
 
   <groupId>com.kokalam</groupId>
   <artifactId>functional-sql-builder</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>functional-sql-builder</name>
   <url>https://github.com/Kokalam/functional-sql-builder</url>
@@ -18,6 +18,14 @@
     <sonar.organization>kokalam</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/kokalam/functional-sql-builder</url>
+    </repository>
+  </distributionManagement>
 
   <dependencies>
     <dependency>
