@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Publish snpashot version
+    name: Publish snapshot version
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -48,4 +48,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           author_name: Snapshot
+          message: 'Set version ${{ env.new_version }}'
           tag: '${{ env.new_version }} --force'
