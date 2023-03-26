@@ -6,7 +6,7 @@
 
   <groupId>com.kokalam</groupId>
   <artifactId>functional-sql-builder</artifactId>
-  <version>1.0.0-BETA-1</version>
+  <version>1.0.0-BETA-2</version>
 
   <name>functional-sql-builder</name>
   <url>https://github.com/Kokalam/functional-sql-builder</url>
