@@ -22,19 +22,19 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-      - name: Extract Maven project version
-        run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-        id: project
+      - name: Get version
+        shell: bash
+        run: echo project_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) >> $GITHUB_ENV
 
       - name: Generate new version
-        run: echo ::set-output name=new_version::$(./.github/scripts/snapshot-version.sh ${{ steps.project.outputs.version }})
+        run: echo new_version=$(./.github/scripts/snapshot-version.sh ${{ env.project_version }}) >> $GITHUB_ENV
         shell: bash
 
       - name: Show new Maven project version
         run: echo ${{ steps.project.outputs.new_version }}
 
       - name: Set projects Maven version to GitHub Action GUI set version
-        run: mvn versions:set "-DnewVersion=${{ steps.project.outputs.new_version }}"
+        run: mvn versions:set "-DnewVersion=${{ env.new_version }}"
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
@@ -47,6 +47,5 @@ jobs:
       - name: Push new version to develop branch    
         uses: EndBug/add-and-commit@v9
         with:
-          add: 'pom.xml'
           author_name: Snapshot
-          tag: '${{ steps.project.outputs.new_version }} --force'
+          tag: '${{ env.new_version }} --force'
